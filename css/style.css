@@ -1,0 +1,418 @@
+/* ---------------------------------------------------------
+   Design tokens
+--------------------------------------------------------- */
+:root {
+  --bg: #0F1215;
+  --card-bg: #1C2024;
+  --accent: #C77B5D;
+  --text-primary: #F2EFEA;
+  --text-secondary: #8A8F94;
+  --divider: #2A2F34;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
+    "Microsoft JhengHei", "Noto Sans TC", Helvetica, Arial, sans-serif;
+
+  --max-width: 960px;
+  --header-height: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------
+   Header
+--------------------------------------------------------- */
+.site-header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--divider);
+  position: sticky;
+  top: 0;
+  background: rgba(15, 18, 21, 0.92);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+.top-nav a {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--divider);
+  border-radius: 999px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.top-nav a:hover,
+.top-nav a.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---------------------------------------------------------
+   Main / view transition
+--------------------------------------------------------- */
+#app {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem) 5rem;
+  min-height: calc(100vh - var(--header-height) - 60px);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+#app.is-leaving {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* ---------------------------------------------------------
+   Home page
+--------------------------------------------------------- */
+.home-title {
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
+}
+
+.home-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0 0 2.5rem;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.cat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 190px;
+  position: relative;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.cat-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.cat-card-num {
+  font-size: clamp(2.75rem, 6vw, 3.5rem);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.cat-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.cat-card-arrow {
+  position: absolute;
+  right: 1.75rem;
+  bottom: 1.75rem;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.cat-card:hover .cat-card-arrow {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* ---------------------------------------------------------
+   Category page
+--------------------------------------------------------- */
+.back-link {
+  display: inline-block;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.category-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 1.75rem;
+}
+
+.category-num {
+  font-size: clamp(2.5rem, 6vw, 3.25rem);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.category-title {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+.category-intro {
+  margin-bottom: 2.5rem;
+}
+
+.category-intro p {
+  font-size: 1.02rem;
+  color: var(--text-primary);
+  margin: 0 0 1.25rem;
+}
+
+.category-note {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--divider);
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.video-placeholder p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.video-placeholder-hint {
+  font-size: 0.82rem;
+  max-width: 26rem;
+}
+
+.category-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--divider);
+}
+
+.pager-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.pager-btn:hover {
+  color: var(--accent);
+}
+
+.pager-btn small {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+.pager-arrow {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.pager-next {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+.pager-placeholder {
+  flex: 1;
+}
+
+.pager-progress {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   Schedule page
+--------------------------------------------------------- */
+.schedule-head {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 2rem;
+}
+
+.schedule-head h1 {
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  margin: 0 0 0.5rem;
+}
+
+.schedule-subtitle {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--divider);
+  vertical-align: top;
+}
+
+.schedule-table thead th {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: var(--card-bg);
+  white-space: nowrap;
+}
+
+.schedule-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-table tbody tr:hover {
+  background: var(--card-bg);
+}
+
+.col-session {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.col-time {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.col-content {
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  min-width: 320px;
+}
+
+/* ---------------------------------------------------------
+   Footer
+--------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--divider);
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+/* ---------------------------------------------------------
+   Responsive tweaks
+--------------------------------------------------------- */
+@media (max-width: 480px) {
+  .category-pager {
+    flex-wrap: wrap;
+  }
+
+  .pager-progress {
+    order: -1;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 0.5rem;
+  }
+}
