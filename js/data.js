@@ -1,7 +1,7 @@
 /**
  * 網站內容資料
  * CATEGORIES：四個訓練分類的文字內容，依訓練邏輯排序（由淺入深）
- * SCHEDULE：12 堂課表資料
+ * SCHEDULE：12 堂課表資料，依「週」分組，每週包含 2 堂課，每堂課包含放鬆軟組織時間與該堂的動作清單
  */
 const CATEGORIES = [
   {
@@ -46,16 +46,159 @@ const CATEGORIES = [
 ];
 
 const SCHEDULE = [
-  { session: "W1-1", time: "20min", content: "坐姿踮腳尖 10次/組共3組；腳趾extension+前足踩地 左右各10次/組，坐姿2組站姿1組（先單腳分開做，再雙腳一起）" },
-  { session: "W1-2", time: "15min", content: "坐姿踮腳尖 10次/組共3組；腳趾extension+前足踩地 左右各10次/組，坐姿2組站姿1組（雙腳一起）" },
-  { session: "W2-1", time: "15min", content: "坐姿踮腳尖10次/組共2組；腳趾extension+前足踩地左右各10次/組坐姿1組站姿2組；四足跪姿-膝離地10s/組共2組" },
-  { session: "W2-2", time: "15min", content: "坐姿踮腳尖10次/組共2組；腳趾extension+前足踩地左右各10次/組坐姿1組站姿2組；建立四足跪姿的中立位；四足跪姿-膝離地10s/組共2組；四足跪姿-棒式（動態）10次/組共2組" },
-  { session: "W3-1", time: "10min", content: "腳趾extension+前足踩地左右各10次/組坐姿1組站姿1組；四足跪姿-膝離地10s/組共1組；四足跪姿-棒式（動態）10次/組共2組；熊爬20步共2組" },
-  { session: "W3-2", time: "10min", content: "腳趾extension+前足踩地左右各10次/組站姿1組；四足跪姿-膝離地10s/組共1組；四足跪姿-棒式（動態）10次/組共1組；熊爬20步共1組；站姿踮腳尖10次/組共2組" },
-  { session: "W4-1", time: "10min", content: "腳趾extension+前足踩地左右各10次/組站姿1組；四足跪姿-棒式（動態）10次/組共1組；站姿踮腳尖10次/組共2組；分腿站踮腳尖左右各10次/組共2組；Squat（學會髖膝踝一起動）" },
-  { session: "W4-2", time: "10min", content: "腳趾extension+前足踩地左右各10次/組站姿1組；四足跪姿-棒式（動態）10次/組共1組；站姿踮腳尖10次/組共1組；Squat 10次/組共3組" },
-  { session: "W5-1", time: "10min", content: "四足跪姿-棒式（動態）10次/組共1組；Squat 10次/組共2組；Squat+踮腳1下10次/組共2組；分腿蹲（學會動作）" },
-  { session: "W5-2", time: "10min", content: "Squat 10次/組共1組；Squat+踮腳1下10次/組共2組；分腿蹲左右各10次/組共2組；Squat+輕跳共10下，不連續" },
-  { session: "W6-1", time: "10min", content: "Squat 10次/組共1組；分腿蹲+前腳踮腳尖10次/組共1組；Squat+輕跳10下連續共2組" },
-  { session: "W6-2", time: "10min", content: "Squat 10次/組共1組；分腿蹲+前腳踮腳尖10次/組共1組；Squat+輕跳10下連續共2組；CMJ 每跳間隔15秒，10跳" }
+  {
+    week: "第 1 週",
+    sessions: [
+      {
+        session: "W1-1",
+        warmup: "20min",
+        exercises: [
+          { name: "坐姿踮腳尖", dose: "10 次/組，共 3 組" },
+          {
+            name: "腳趾 extension ＋ 前足踩地",
+            dose: "左右各 10 次/組，坐姿 2 組站姿 1 組",
+            note: "先單腳分開做，再雙腳一起"
+          }
+        ]
+      },
+      {
+        session: "W1-2",
+        warmup: "15min",
+        exercises: [
+          { name: "坐姿踮腳尖", dose: "10 次/組，共 3 組" },
+          {
+            name: "腳趾 extension ＋ 前足踩地",
+            dose: "左右各 10 次/組，坐姿 2 組站姿 1 組",
+            note: "雙腳一起"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    week: "第 2 週",
+    sessions: [
+      {
+        session: "W2-1",
+        warmup: "15min",
+        exercises: [
+          { name: "坐姿踮腳尖", dose: "10 次/組，共 2 組" },
+          { name: "腳趾 extension ＋ 前足踩地", dose: "左右各 10 次/組，坐姿 1 組站姿 2 組" },
+          { name: "四足跪姿－膝離地", dose: "10s/組，共 2 組" }
+        ]
+      },
+      {
+        session: "W2-2",
+        warmup: "15min",
+        exercises: [
+          { name: "坐姿踮腳尖", dose: "10 次/組，共 2 組" },
+          { name: "腳趾 extension ＋ 前足踩地", dose: "左右各 10 次/組，坐姿 1 組站姿 2 組" },
+          { name: "建立四足跪姿的中立位", dose: "" },
+          { name: "四足跪姿－膝離地", dose: "10s/組，共 2 組" },
+          { name: "四足跪姿－棒式（動態）", dose: "10 次/組，共 2 組" }
+        ]
+      }
+    ]
+  },
+  {
+    week: "第 3 週",
+    sessions: [
+      {
+        session: "W3-1",
+        warmup: "10min",
+        exercises: [
+          { name: "腳趾 extension ＋ 前足踩地", dose: "左右各 10 次/組，坐姿 1 組站姿 1 組" },
+          { name: "四足跪姿－膝離地", dose: "10s/組，共 1 組" },
+          { name: "四足跪姿－棒式（動態）", dose: "10 次/組，共 2 組" },
+          { name: "熊爬", dose: "20 步，共 2 組" }
+        ]
+      },
+      {
+        session: "W3-2",
+        warmup: "10min",
+        exercises: [
+          { name: "腳趾 extension ＋ 前足踩地", dose: "左右各 10 次/組，站姿 1 組" },
+          { name: "四足跪姿－膝離地", dose: "10s/組，共 1 組" },
+          { name: "四足跪姿－棒式（動態）", dose: "10 次/組，共 1 組" },
+          { name: "熊爬", dose: "20 步，共 1 組" },
+          { name: "站姿踮腳尖", dose: "10 次/組，共 2 組" }
+        ]
+      }
+    ]
+  },
+  {
+    week: "第 4 週",
+    sessions: [
+      {
+        session: "W4-1",
+        warmup: "10min",
+        exercises: [
+          { name: "腳趾 extension ＋ 前足踩地", dose: "左右各 10 次/組，站姿 1 組" },
+          { name: "四足跪姿－棒式（動態）", dose: "10 次/組，共 1 組" },
+          { name: "站姿踮腳尖", dose: "10 次/組，共 2 組" },
+          { name: "分腿站踮腳尖", dose: "左右各 10 次/組，共 2 組" },
+          { name: "Squat", dose: "學會髖膝踝一起動" }
+        ]
+      },
+      {
+        session: "W4-2",
+        warmup: "10min",
+        exercises: [
+          { name: "腳趾 extension ＋ 前足踩地", dose: "左右各 10 次/組，站姿 1 組" },
+          { name: "四足跪姿－棒式（動態）", dose: "10 次/組，共 1 組" },
+          { name: "站姿踮腳尖", dose: "10 次/組，共 1 組" },
+          { name: "Squat", dose: "10 次/組，共 3 組" }
+        ]
+      }
+    ]
+  },
+  {
+    week: "第 5 週",
+    sessions: [
+      {
+        session: "W5-1",
+        warmup: "10min",
+        exercises: [
+          { name: "四足跪姿－棒式（動態）", dose: "10 次/組，共 1 組" },
+          { name: "Squat", dose: "10 次/組，共 2 組" },
+          { name: "Squat ＋ 踮腳 1 下", dose: "10 次/組，共 2 組" },
+          { name: "分腿蹲", dose: "學會動作" }
+        ]
+      },
+      {
+        session: "W5-2",
+        warmup: "10min",
+        exercises: [
+          { name: "Squat", dose: "10 次/組，共 1 組" },
+          { name: "Squat ＋ 踮腳 1 下", dose: "10 次/組，共 2 組" },
+          { name: "分腿蹲", dose: "左右各 10 次/組，共 2 組" },
+          { name: "Squat ＋ 輕跳", dose: "共 10 下，不連續" }
+        ]
+      }
+    ]
+  },
+  {
+    week: "第 6 週",
+    sessions: [
+      {
+        session: "W6-1",
+        warmup: "10min",
+        exercises: [
+          { name: "Squat", dose: "10 次/組，共 1 組" },
+          { name: "分腿蹲 ＋ 前腳踮腳尖", dose: "10 次/組，共 1 組" },
+          { name: "Squat ＋ 輕跳", dose: "10 下連續，共 2 組" }
+        ]
+      },
+      {
+        session: "W6-2",
+        warmup: "10min",
+        exercises: [
+          { name: "Squat", dose: "10 次/組，共 1 組" },
+          { name: "分腿蹲 ＋ 前腳踮腳尖", dose: "10 次/組，共 1 組" },
+          { name: "Squat ＋ 輕跳", dose: "10 下連續，共 2 組" },
+          { name: "CMJ", dose: "每跳間隔 15 秒，10 跳" }
+        ]
+      }
+    ]
+  }
 ];

@@ -338,58 +338,110 @@ a {
   margin: 0;
 }
 
-.table-wrapper {
-  overflow-x: auto;
+.schedule-weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.week-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.9rem;
+}
+
+.week-sessions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 700px) {
+  .week-sessions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.session-card {
+  background: var(--card-bg);
   border: 1px solid var(--divider);
   border-radius: 12px;
+  padding: 1.25rem 1.5rem;
 }
 
-.schedule-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 640px;
-}
-
-.schedule-table th,
-.schedule-table td {
-  padding: 0.9rem 1.1rem;
-  text-align: left;
+.session-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.85rem;
   border-bottom: 1px solid var(--divider);
-  vertical-align: top;
 }
 
-.schedule-table thead th {
+.session-code {
+  font-weight: 800;
+  font-size: 1.05rem;
   color: var(--accent);
-  font-size: 0.85rem;
-  font-weight: 700;
-  background: var(--card-bg);
-  white-space: nowrap;
-}
-
-.schedule-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.schedule-table tbody tr:hover {
-  background: var(--card-bg);
-}
-
-.col-session {
-  font-weight: 700;
-  color: var(--accent);
-  white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-.col-time {
+.session-warmup {
+  font-size: 0.8rem;
   color: var(--text-secondary);
   white-space: nowrap;
 }
 
-.col-content {
+.session-warmup strong {
   color: var(--text-primary);
-  font-size: 0.92rem;
-  min-width: 320px;
+  font-weight: 600;
+}
+
+.exercise-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.exercise-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  font-size: 0.9rem;
+}
+
+.exercise-item + .exercise-item {
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--divider);
+}
+
+.exercise-name {
+  color: var(--text-primary);
+  flex: 1 1 auto;
+}
+
+.exercise-dose {
+  color: var(--text-secondary);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.exercise-note {
+  flex-basis: 100%;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--divider);
 }
 
 /* ---------------------------------------------------------

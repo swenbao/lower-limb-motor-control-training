@@ -19,13 +19,14 @@ function renderHome() {
       </a>`
   ).join("");
 
-  const rows = SCHEDULE.map(
-    (row) => `
-      <tr>
-        <td class="col-session">${row.session}</td>
-        <td class="col-time">${row.time}</td>
-        <td class="col-content">${row.content}</td>
-      </tr>`
+  const weeks = SCHEDULE.map(
+    (week) => `
+      <div class="week-group">
+        <h3 class="week-label">${week.week}</h3>
+        <div class="week-sessions">
+          ${week.sessions.map(renderSessionCard).join("")}
+        </div>
+      </div>`
   ).join("");
 
   return `
@@ -39,20 +40,31 @@ function renderHome() {
           <h2>12 堂課表</h2>
           <p class="schedule-subtitle">共 6 週，每週 2 堂</p>
         </header>
-        <div class="table-wrapper">
-          <table class="schedule-table">
-            <thead>
-              <tr>
-                <th>週次 / 堂次</th>
-                <th>放鬆軟組織時間</th>
-                <th>訓練動作內容</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
+        <div class="schedule-weeks">${weeks}</div>
       </section>
     </section>`;
+}
+
+function renderSessionCard(session) {
+  const exercises = session.exercises
+    .map(
+      (ex) => `
+        <li class="exercise-item">
+          <span class="exercise-name">${ex.name}</span>
+          ${ex.dose ? `<span class="exercise-dose">${ex.dose}</span>` : ""}
+          ${ex.note ? `<span class="exercise-note">＊${ex.note}</span>` : ""}
+        </li>`
+    )
+    .join("");
+
+  return `
+    <article class="session-card">
+      <header class="session-card-head">
+        <span class="session-code">${session.session}</span>
+        <span class="session-warmup">放鬆軟組織 <strong>${session.warmup}</strong></span>
+      </header>
+      <ul class="exercise-list">${exercises}</ul>
+    </article>`;
 }
 
 function renderCategory(id) {
