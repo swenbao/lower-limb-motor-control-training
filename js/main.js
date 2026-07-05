@@ -106,7 +106,7 @@ function renderCategory(id) {
 
   const prevBtn = prev
     ? `<a class="pager-btn pager-prev" href="#/${prev.id}">
-        <span class="pager-arrow">&larr;</span>
+        <span class="pager-arrow" aria-hidden="true">&larr;</span>
         <span class="pager-text"><small>上一個</small>${prev.num} ${prev.title}</span>
       </a>`
     : `<span class="pager-btn pager-placeholder" aria-hidden="true"></span>`;
@@ -114,7 +114,7 @@ function renderCategory(id) {
   const nextBtn = next
     ? `<a class="pager-btn pager-next" href="#/${next.id}">
         <span class="pager-text"><small>下一個</small>${next.num} ${next.title}</span>
-        <span class="pager-arrow">&rarr;</span>
+        <span class="pager-arrow" aria-hidden="true">&rarr;</span>
       </a>`
     : `<span class="pager-btn pager-placeholder" aria-hidden="true"></span>`;
 
