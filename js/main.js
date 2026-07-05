@@ -45,25 +45,37 @@ function renderHome() {
     </section>`;
 }
 
+function parseDoseChips(dose) {
+  if (!dose) return [];
+  return dose
+    .split("，")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function renderExerciseRow(ex) {
+  const chips = parseDoseChips(ex.dose);
+  const chipsHtml = chips.map((c) => `<span class="dose-chip">${c}</span>`).join("");
+
+  return `
+    <li class="exercise-item${chips.length ? "" : " no-dose"}">
+      <span class="exercise-name">${ex.name}</span>
+      ${chips.length ? `<span class="exercise-doses">${chipsHtml}</span>` : ""}
+      ${ex.note ? `<span class="exercise-note">＊${ex.note}</span>` : ""}
+    </li>`;
+}
+
 function renderSessionCard(session) {
-  const exercises = session.exercises
-    .map(
-      (ex) => `
-        <li class="exercise-item">
-          <span class="exercise-name">${ex.name}</span>
-          ${ex.dose ? `<span class="exercise-dose">${ex.dose}</span>` : ""}
-          ${ex.note ? `<span class="exercise-note">＊${ex.note}</span>` : ""}
-        </li>`
-    )
+  const rows = [{ name: "放鬆軟組織", dose: session.warmup }, ...session.exercises]
+    .map(renderExerciseRow)
     .join("");
 
   return `
     <article class="session-card">
       <header class="session-card-head">
         <span class="session-code">${session.session}</span>
-        <span class="session-warmup">放鬆軟組織 <strong>${session.warmup}</strong></span>
       </header>
-      <ul class="exercise-list">${exercises}</ul>
+      <ul class="exercise-list">${rows}</ul>
     </article>`;
 }
 
@@ -112,8 +124,15 @@ function renderCategory(id) {
       </header>
       <div class="category-intro">
         <p>${cat.intro}</p>
-        ${cat.note ? `<p class="category-note">${cat.note}</p>` : ""}
       </div>
+      ${
+        cat.note
+          ? `<aside class="note-card">
+              <span class="note-card-label">補充</span>
+              <p class="note-card-text">${cat.note}</p>
+            </aside>`
+          : ""
+      }
       ${videoBlock}
       <nav class="category-pager" aria-label="分類導覽">
         ${prevBtn}

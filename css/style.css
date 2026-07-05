@@ -208,20 +208,40 @@ a {
 }
 
 .category-intro {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.75rem;
 }
 
 .category-intro p {
   font-size: 1.02rem;
   color: var(--text-primary);
-  margin: 0 0 1.25rem;
+  margin: 0;
 }
 
-.category-note {
+.note-card {
+  display: block;
+  margin: 0 0 2rem;
+  padding: 1.1rem 1.25rem;
+  background: rgba(199, 123, 93, 0.07);
+  border: 1px solid rgba(199, 123, 93, 0.28);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+}
+
+.note-card-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.note-card-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.75;
   color: var(--text-secondary);
-  font-size: 0.92rem;
-  padding-left: 1rem;
-  border-left: 2px solid var(--divider);
 }
 
 .video-frame {
@@ -373,11 +393,6 @@ a {
 }
 
 .session-card-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.4rem 0.75rem;
   padding-bottom: 0.85rem;
   margin-bottom: 0.85rem;
   border-bottom: 1px solid var(--divider);
@@ -390,17 +405,6 @@ a {
   font-variant-numeric: tabular-nums;
 }
 
-.session-warmup {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  white-space: nowrap;
-}
-
-.session-warmup strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
 .exercise-list {
   list-style: none;
   margin: 0;
@@ -411,12 +415,15 @@ a {
 }
 
 .exercise-item {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.25rem 1rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 0.3rem 1rem;
   font-size: 0.9rem;
+}
+
+.exercise-item.no-dose {
+  grid-template-columns: 1fr;
 }
 
 .exercise-item + .exercise-item {
@@ -426,22 +433,46 @@ a {
 
 .exercise-name {
   color: var(--text-primary);
-  flex: 1 1 auto;
 }
 
-.exercise-dose {
+.exercise-doses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-content: flex-start;
+  gap: 0.35rem;
+}
+
+.dose-chip {
+  display: inline-block;
+  background: rgba(199, 123, 93, 0.12);
+  border: 1px solid rgba(199, 123, 93, 0.35);
   color: var(--text-secondary);
-  text-align: right;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.74rem;
+  line-height: 1.5;
   white-space: nowrap;
 }
 
 .exercise-note {
-  flex-basis: 100%;
+  grid-column: 1 / -1;
   font-size: 0.78rem;
   color: var(--text-secondary);
   font-style: italic;
   padding-left: 0.75rem;
   border-left: 2px solid var(--divider);
+  margin-top: 0.1rem;
+}
+
+@media (max-width: 420px) {
+  .exercise-item {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-doses {
+    justify-content: flex-start;
+  }
 }
 
 /* ---------------------------------------------------------
