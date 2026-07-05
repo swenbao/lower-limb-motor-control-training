@@ -1,6 +1,6 @@
 /**
  * 路由與畫面渲染
- * 以 location.hash 作為簡易 SPA router：#/ 首頁、#/schedule 課表、#/relax 等分類頁
+ * 以 location.hash 作為簡易 SPA router：#/ 首頁（含 12 堂課表）、#/relax 等分類頁
  */
 const TRANSITION_MS = 180;
 
@@ -19,11 +19,39 @@ function renderHome() {
       </a>`
   ).join("");
 
+  const rows = SCHEDULE.map(
+    (row) => `
+      <tr>
+        <td class="col-session">${row.session}</td>
+        <td class="col-time">${row.time}</td>
+        <td class="col-content">${row.content}</td>
+      </tr>`
+  ).join("");
+
   return `
     <section class="home">
       <h1 class="home-title">下肢動作控制訓練課程</h1>
       <p class="home-subtitle">四個階段，由淺入深，循序建立下肢動作控制能力</p>
       <div class="cat-grid">${cards}</div>
+
+      <section class="schedule-section" id="schedule-section">
+        <header class="schedule-head">
+          <h2>12 堂課表</h2>
+          <p class="schedule-subtitle">共 6 週，每週 2 堂</p>
+        </header>
+        <div class="table-wrapper">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>週次 / 堂次</th>
+                <th>放鬆軟組織時間</th>
+                <th>訓練動作內容</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </section>
     </section>`;
 }
 
@@ -83,38 +111,6 @@ function renderCategory(id) {
     </section>`;
 }
 
-function renderSchedule() {
-  const rows = SCHEDULE.map(
-    (row) => `
-      <tr>
-        <td class="col-session">${row.session}</td>
-        <td class="col-time">${row.time}</td>
-        <td class="col-content">${row.content}</td>
-      </tr>`
-  ).join("");
-
-  return `
-    <section class="schedule-page">
-      <a class="back-link" href="#/">&larr; 返回首頁</a>
-      <header class="schedule-head">
-        <h1>12 堂課表</h1>
-        <p class="schedule-subtitle">共 6 週，每週 2 堂</p>
-      </header>
-      <div class="table-wrapper">
-        <table class="schedule-table">
-          <thead>
-            <tr>
-              <th>週次 / 堂次</th>
-              <th>放鬆軟組織時間</th>
-              <th>訓練動作內容</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    </section>`;
-}
-
 function mount(html, title) {
   const app = document.getElementById("app");
   document.title = title ? `${title}｜下肢動作控制訓練課程` : "下肢動作控制訓練課程";
@@ -142,9 +138,6 @@ function render() {
   if (route === "home") {
     html = renderHome();
     title = null;
-  } else if (route === "schedule") {
-    html = renderSchedule();
-    title = "12堂課表";
   } else {
     const cat = CATEGORIES.find((c) => c.id === route);
     if (!cat) {
@@ -159,5 +152,24 @@ function render() {
   updateNav(route);
 }
 
+function scrollToSchedule(event) {
+  event.preventDefault();
+  const jump = () => {
+    const el = document.getElementById("schedule-section");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  if (parseRoute() === "home") {
+    jump();
+  } else {
+    window.location.hash = "#/";
+    window.setTimeout(jump, TRANSITION_MS + 60);
+  }
+}
+
 window.addEventListener("hashchange", render);
-window.addEventListener("DOMContentLoaded", render);
+window.addEventListener("DOMContentLoaded", () => {
+  render();
+  const scheduleLink = document.getElementById("schedule-nav-link");
+  if (scheduleLink) scheduleLink.addEventListener("click", scrollToSchedule);
+});

@@ -314,15 +314,21 @@ a {
 }
 
 /* ---------------------------------------------------------
-   Schedule page
+   Schedule section (home page)
 --------------------------------------------------------- */
+.schedule-section {
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--divider);
+}
+
 .schedule-head {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--divider);
   margin-bottom: 2rem;
 }
 
-.schedule-head h1 {
+.schedule-head h2 {
   font-size: clamp(1.5rem, 3.5vw, 2.1rem);
   margin: 0 0 0.5rem;
 }
