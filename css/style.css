@@ -57,10 +57,38 @@ a {
   z-index: 10;
 }
 
-.brand {
-  font-weight: 700;
-  font-size: 0.95rem;
+.masthead {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.masthead-seal {
+  flex: none;
+  width: 26px;
+  height: 26px;
+}
+
+.masthead-name {
+  font-size: 0.78rem;
+  font-weight: 600;
   letter-spacing: 0.01em;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.masthead:hover .masthead-name {
+  color: var(--text-primary);
+}
+
+.masthead-suffix {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 480px) {
+  .masthead-suffix {
+    display: none;
+  }
 }
 
 .top-nav a {
