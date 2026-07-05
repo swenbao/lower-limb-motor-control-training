@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy-primary.outcome == 'success' && steps.deploy-primary.outputs.page_url || steps.deploy-retry.outputs.page_url }}
+      url: ${{ steps.deploy-primary.outputs.page_url != '' && steps.deploy-primary.outputs.page_url || steps.deploy-retry.outputs.page_url != '' && steps.deploy-retry.outputs.page_url || 'https://swenbao.github.io/lower-limb-motor-control-training/' }}
     steps:
       - name: Deploy to GitHub Pages
         id: deploy-primary
@@ -46,5 +46,5 @@ jobs:
         if: steps.deploy-primary.outcome == 'failure'
         uses: actions/deploy-pages@v5
       - name: Fail if both deploy attempts fail
-        if: always() && steps.deploy-primary.outcome != 'success' && steps.deploy-retry.outcome != 'success'
+        if: always() && steps.deploy-primary.outcome != 'success' && (steps.deploy-retry.outcome == 'skipped' || steps.deploy-retry.outcome == 'failure' || steps.deploy-retry.outcome == 'cancelled')
         run: exit 1
