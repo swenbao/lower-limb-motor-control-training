@@ -12,10 +12,13 @@ function parseRoute() {
 function renderHome() {
   const cards = CATEGORIES.map(
     (cat) => `
-      <a class="cat-card" href="#/${cat.id}">
-        <span class="cat-card-num">${cat.num}</span>
-        <span class="cat-card-title">${cat.title}</span>
-        <span class="cat-card-arrow" aria-hidden="true">&rarr;</span>
+      <a class="cat-row" href="#/${cat.id}">
+        <span class="cat-row-num">${cat.num}</span>
+        <span class="cat-row-body">
+          <span class="cat-row-title">${cat.title}</span>
+          <span class="cat-row-sub">${cat.teaser}</span>
+        </span>
+        <span class="cat-row-arrow" aria-hidden="true">&rarr;</span>
       </a>`
   ).join("");
 
@@ -33,7 +36,7 @@ function renderHome() {
     <section class="home">
       <h1 class="home-title">下肢動作控制訓練課程</h1>
       <p class="home-subtitle">四個階段，由淺入深，循序建立下肢動作控制能力</p>
-      <div class="cat-grid">${cards}</div>
+      <div class="cat-list">${cards}</div>
 
       <section class="schedule-section" id="schedule-section">
         <header class="schedule-head">
