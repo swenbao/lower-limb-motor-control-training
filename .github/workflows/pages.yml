@@ -1,4 +1,4 @@
-name: Deploy static content to Pages
+name: Build and deploy static content to Pages
 
 on:
   push:
@@ -35,7 +35,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy-primary.outputs.page_url || steps.deploy-retry.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deploy-primary
