@@ -35,6 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      url: ${{ steps.deploy-primary.outcome == 'success' && steps.deploy-primary.outputs.page_url || steps.deploy-retry.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deploy-primary
@@ -45,5 +46,5 @@ jobs:
         if: steps.deploy-primary.outcome == 'failure'
         uses: actions/deploy-pages@v5
       - name: Fail if both deploy attempts fail
-        if: always() && steps.deploy-primary.outcome == 'failure' && steps.deploy-retry.outcome == 'failure'
+        if: always() && steps.deploy-primary.outcome != 'success' && steps.deploy-retry.outcome != 'success'
         run: exit 1
