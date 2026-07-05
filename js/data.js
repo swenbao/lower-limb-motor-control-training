@@ -7,7 +7,7 @@ const CATEGORIES = [
   {
     id: "relax",
     num: "01",
-    title: "放鬆",
+    title: "軟組織放鬆課程",
     teaser: "先放鬆張力，動作品質才不會被代償吃掉",
     videoKey: "relax",
     intro:
@@ -18,7 +18,7 @@ const CATEGORIES = [
   {
     id: "ankle",
     num: "02",
-    title: "足踝控制",
+    title: "腳趾/足踝練習",
     teaser: "4 個動作，重建足弓的主動穩定支撐",
     videoKey: "ankle",
     intro:
@@ -29,7 +29,7 @@ const CATEGORIES = [
   {
     id: "core",
     num: "03",
-    title: "核心訓練",
+    title: "核心建立",
     teaser: "穩定軀幹，力量才能有效傳遞出去",
     videoKey: "core",
     intro:
@@ -40,7 +40,7 @@ const CATEGORIES = [
   {
     id: "power",
     num: "04",
-    title: "多關節力量傳遞",
+    title: "多關節力量傳遞訓練",
     teaser: "整合髖膝踝協同動作，轉化成真正的運動表現",
     videoKey: "power",
     intro:
