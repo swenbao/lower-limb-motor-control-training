@@ -119,7 +119,7 @@ function renderCategory(id) {
     : `<span class="pager-btn pager-placeholder" aria-hidden="true"></span>`;
 
   return `
-    <section class="category-page">
+    <section class="category-page" data-bg-num="${cat.num}">
       <a class="back-link" href="#/">&larr; 返回首頁</a>
       <header class="category-head">
         <span class="category-num">${cat.num}</span>
