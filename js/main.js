@@ -7,6 +7,12 @@
  */
 const TRANSITION_MS = 180;
 
+if ("scrollRestoration" in history) {
+  // 避免瀏覽器（尤其 Safari）在我們用 JS 捲到目標位置之後，
+  // 又依照自己記住的捲動位置把畫面拉回去
+  history.scrollRestoration = "manual";
+}
+
 function parseRoute() {
   const hash = window.location.hash.replace(/^#\/?/, "");
   return hash || "home";
@@ -176,14 +182,22 @@ function mount(html, title, scrollTargetId) {
   app.classList.add("is-leaving");
   window.setTimeout(() => {
     app.innerHTML = html;
-    const target = scrollTargetId ? document.getElementById(scrollTargetId) : null;
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
+
+    if (!scrollTargetId) {
       window.scrollTo({ top: 0, behavior: "auto" });
     }
+
     requestAnimationFrame(() => {
       app.classList.remove("is-leaving");
+
+      if (scrollTargetId) {
+        // 等進場動畫的 class 生效、佈局穩定後再捲動，避免在轉場過程中
+        // 呼叫 scrollIntoView 導致 Safari 算出錯誤的目標位置
+        requestAnimationFrame(() => {
+          const target = document.getElementById(scrollTargetId);
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
     });
   }, TRANSITION_MS);
 }
