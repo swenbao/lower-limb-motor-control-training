@@ -588,6 +588,20 @@ a {
   scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
+@keyframes session-flash {
+  0%,
+  100% {
+    background-color: var(--card-bg);
+  }
+  50% {
+    background-color: rgba(199, 123, 93, 0.32);
+  }
+}
+
+.session-card--flash {
+  animation: session-flash 0.6s ease-in-out 2;
+}
+
 .session-card-head {
   padding-bottom: 0.85rem;
   margin-bottom: 0.85rem;

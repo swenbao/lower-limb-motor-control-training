@@ -176,6 +176,32 @@ function renderCategory(id) {
     </section>`;
 }
 
+function flashCard(el) {
+  el.classList.remove("session-card--flash");
+  void el.offsetWidth; // 強制 reflow，讓動畫可以重新觸發
+  el.classList.add("session-card--flash");
+  el.addEventListener("animationend", () => el.classList.remove("session-card--flash"), { once: true });
+}
+
+function scrollToCard(target) {
+  let flashed = false;
+  const doFlash = () => {
+    if (flashed) return;
+    flashed = true;
+    flashCard(target);
+  };
+
+  if ("onscrollend" in window) {
+    window.addEventListener("scrollend", doFlash, { once: true });
+    // 保險：如果目標本來就在畫面上、根本不會捲動，scrollend 不會觸發
+    window.setTimeout(doFlash, 900);
+  } else {
+    window.setTimeout(doFlash, 500);
+  }
+
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 function mount(html, title, scrollTargetId) {
   const app = document.getElementById("app");
   document.title = title ? `${title}｜下肢動作控制訓練課程` : "下肢動作控制訓練課程";
@@ -195,7 +221,7 @@ function mount(html, title, scrollTargetId) {
         // 呼叫 scrollIntoView 導致 Safari 算出錯誤的目標位置
         requestAnimationFrame(() => {
           const target = document.getElementById(scrollTargetId);
-          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (target) scrollToCard(target);
         });
       }
     });
@@ -261,7 +287,7 @@ function handleSessionCodeClick(event) {
   if (!target) return;
 
   event.preventDefault();
-  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollToCard(target);
   history.pushState(null, "", `#/${link.dataset.code}`);
   document.title = `${link.dataset.code}｜下肢動作控制訓練課程`;
 }
