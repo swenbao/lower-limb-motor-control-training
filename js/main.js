@@ -142,6 +142,7 @@ function renderCategory(id) {
       <div class="category-intro">
         <p>${cat.intro}</p>
       </div>
+      ${videoBlock}
       ${
         cat.note
           ? `<aside class="note-card">
@@ -150,7 +151,6 @@ function renderCategory(id) {
             </aside>`
           : ""
       }
-      ${videoBlock}
       <nav class="category-pager" aria-label="分類導覽">
         ${prevBtn}
         <span class="pager-progress">${cat.num} / 04</span>
