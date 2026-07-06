@@ -36,6 +36,20 @@ function renderHome() {
     <section class="home">
       <h1 class="home-title">下肢動作控制訓練課程</h1>
       <p class="home-subtitle">四個階段，由淺入深，循序建立下肢動作控制能力</p>
+
+      <details class="foreword">
+        <summary class="foreword-summary">
+          <span class="foreword-kicker">課程緣起</span>
+          <span class="foreword-prompt">為什麼設計這套課程？</span>
+          <span class="foreword-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="foreword-panel">
+          <div class="foreword-panel-inner">
+            <p class="foreword-text">${FOREWORD}</p>
+          </div>
+        </div>
+      </details>
+
       <div class="cat-list">${cards}</div>
 
       <section class="schedule-section" id="schedule-section">
