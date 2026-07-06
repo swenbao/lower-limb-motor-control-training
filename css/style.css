@@ -539,6 +539,7 @@ a {
 --------------------------------------------------------- */
 .schedule-section {
   margin-top: 3.5rem;
+  scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
 .schedule-head {
@@ -579,17 +580,12 @@ a {
   gap: 1rem;
 }
 
-@media (min-width: 700px) {
-  .week-sessions {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 .session-card {
   background: var(--card-bg);
   border: 1px solid var(--divider);
   border-radius: 7px;
   padding: 1.25rem 1.5rem;
+  scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
 .session-card-head {
@@ -599,11 +595,20 @@ a {
 }
 
 .session-code {
+  display: inline-block;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.15rem;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
+  text-underline-offset: 4px;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.session-code:hover {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
 }
 
 .exercise-list {

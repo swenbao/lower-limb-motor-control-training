@@ -1,12 +1,23 @@
 /**
  * 路由與畫面渲染
- * 以 location.hash 作為簡易 SPA router：#/ 首頁（含 12 堂課表）、#/relax 等分類頁
+ * 以 location.hash 作為簡易 SPA router：
+ *   #/         首頁（含 12 堂課表）
+ *   #/relax    等分類頁
+ *   #/W1-1     深連結到首頁課表中對應的那一堂課，載入後自動捲動過去
  */
 const TRANSITION_MS = 180;
 
 function parseRoute() {
   const hash = window.location.hash.replace(/^#\/?/, "");
   return hash || "home";
+}
+
+function findSession(code) {
+  for (const week of SCHEDULE) {
+    const match = week.sessions.find((s) => s.session === code);
+    if (match) return match;
+  }
+  return null;
 }
 
 function renderHome() {
@@ -88,9 +99,9 @@ function renderSessionCard(session) {
     .join("");
 
   return `
-    <article class="session-card">
+    <article class="session-card" id="session-${session.session}">
       <header class="session-card-head">
-        <span class="session-code">${session.session}</span>
+        <a class="session-code" href="#/${session.session}" data-code="${session.session}">${session.session}</a>
       </header>
       <ul class="exercise-list">${rows}</ul>
     </article>`;
@@ -159,13 +170,18 @@ function renderCategory(id) {
     </section>`;
 }
 
-function mount(html, title) {
+function mount(html, title, scrollTargetId) {
   const app = document.getElementById("app");
   document.title = title ? `${title}｜下肢動作控制訓練課程` : "下肢動作控制訓練課程";
   app.classList.add("is-leaving");
   window.setTimeout(() => {
     app.innerHTML = html;
-    window.scrollTo({ top: 0, behavior: "auto" });
+    const target = scrollTargetId ? document.getElementById(scrollTargetId) : null;
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
     requestAnimationFrame(() => {
       app.classList.remove("is-leaving");
     });
@@ -182,21 +198,29 @@ function render() {
   const route = parseRoute();
   let html;
   let title;
+  let scrollTargetId = null;
 
   if (route === "home") {
     html = renderHome();
     title = null;
   } else {
-    const cat = CATEGORIES.find((c) => c.id === route);
-    if (!cat) {
-      window.location.hash = "#/";
-      return;
+    const session = findSession(route);
+    if (session) {
+      html = renderHome();
+      title = session.session;
+      scrollTargetId = `session-${session.session}`;
+    } else {
+      const cat = CATEGORIES.find((c) => c.id === route);
+      if (!cat) {
+        window.location.hash = "#/";
+        return;
+      }
+      html = renderCategory(route);
+      title = `${cat.num} ${cat.title}`;
     }
-    html = renderCategory(route);
-    title = `${cat.num} ${cat.title}`;
   }
 
-  mount(html, title);
+  mount(html, title, scrollTargetId);
   updateNav(route);
 }
 
@@ -215,9 +239,23 @@ function scrollToSchedule(event) {
   }
 }
 
+function handleSessionCodeClick(event) {
+  const link = event.target.closest(".session-code");
+  if (!link) return;
+
+  const target = document.getElementById(`session-${link.dataset.code}`);
+  if (!target) return;
+
+  event.preventDefault();
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  history.pushState(null, "", `#/${link.dataset.code}`);
+  document.title = `${link.dataset.code}｜下肢動作控制訓練課程`;
+}
+
 window.addEventListener("hashchange", render);
 window.addEventListener("DOMContentLoaded", () => {
   render();
   const scheduleLink = document.getElementById("schedule-nav-link");
   if (scheduleLink) scheduleLink.addEventListener("click", scrollToSchedule);
+  document.getElementById("app").addEventListener("click", handleSessionCodeClick);
 });
