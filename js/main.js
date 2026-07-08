@@ -26,6 +26,38 @@ function findSession(code) {
   return null;
 }
 
+/**
+ * 把 js/config.js 裡填的值轉成單純的 YouTube 影片 ID。
+ * 可以直接貼整個網址（watch、youtu.be、shorts、embed 都可以），
+ * 也可以只貼 ID 本身，兩種寫法都吃得下去。
+ */
+function parseYouTubeId(input) {
+  if (!input) return "";
+  const trimmed = input.trim();
+
+  if (/^[\w-]{11}$/.test(trimmed)) return trimmed;
+
+  try {
+    const url = new URL(trimmed);
+    const host = url.hostname.replace(/^www\.|^m\./, "");
+
+    if (host === "youtu.be") {
+      return url.pathname.slice(1).split("/")[0];
+    }
+
+    if (host === "youtube.com") {
+      if (url.pathname === "/watch") return url.searchParams.get("v") || "";
+
+      const match = url.pathname.match(/^\/(?:shorts|embed|live)\/([\w-]{11})/);
+      if (match) return match[1];
+    }
+  } catch (err) {
+    // 不是合法網址，就當作使用者已經直接貼了 ID，往下用原始字串
+  }
+
+  return trimmed;
+}
+
 function renderHome() {
   const cards = CATEGORIES.map(
     (cat) => `
@@ -120,7 +152,7 @@ function renderCategory(id) {
   const cat = CATEGORIES[index];
   const prev = CATEGORIES[index - 1];
   const next = CATEGORIES[index + 1];
-  const videoId = VIDEO_IDS[cat.videoKey];
+  const videoId = parseYouTubeId(VIDEO_IDS[cat.videoKey]);
 
   const videoBlock = videoId
     ? `<div class="video-frame">
