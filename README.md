@@ -26,18 +26,22 @@
 
 ## 填入 YouTube 影片
 
-打開 [js/config.js](js/config.js)，把四個分類對應的 YouTube 影片 ID 填進去即可（不用填整個網址，只要 `watch?v=` 後面那一段）：
+打開 [js/config.js](js/config.js)，把四個分類對應的 YouTube 影片網址或 ID 填進去即可。**直接貼整個網址就好，不用自己截取 ID**，下面這些格式都吃得下去：
 
 ```js
 const VIDEO_IDS = {
-  relax: "your-video-id",
-  ankle: "your-video-id",
-  core: "your-video-id",
-  power: "your-video-id"
+  relax: "https://www.youtube.com/shorts/xxxxxxxxxxx",   // YouTube Shorts
+  ankle: "https://www.youtube.com/watch?v=xxxxxxxxxxx",  // 一般影片網址
+  core: "https://youtu.be/xxxxxxxxxxx",                  // 短網址
+  power: "xxxxxxxxxxx"                                   // 也可以只填 11 碼的影片 ID 本身
 };
 ```
 
-未填入 ID 前，該分類頁會顯示「影片尚未設定」的提示，不影響其他內容。
+實際的網址解析邏輯在 [js/main.js](js/main.js) 的 `parseYouTubeId()`。
+
+未填入前，該分類頁會顯示「影片尚未設定」的提示，不影響其他內容。
+
+影片區塊固定是 **9:16 直式**（`.video-frame`，寬度上限 420px、置中），是配合手機拍攝的直式教學短片（例如 YouTube Shorts）設計的。如果之後改用一般橫式 16:9 的影片，需要到 [css/style.css](css/style.css) 把 `.video-frame` 的 `aspect-ratio` 改回 `16 / 9`。
 
 ## 本機預覽
 
