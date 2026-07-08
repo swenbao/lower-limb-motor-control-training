@@ -446,7 +446,10 @@ a {
 .video-frame {
   position: relative;
   width: 100%;
-  padding-top: 56.25%;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 9 / 16; /* 直式，配合手機拍攝的教學短片 */
   background: var(--card-bg);
   border: 1px solid var(--divider);
   border-radius: 7px;
