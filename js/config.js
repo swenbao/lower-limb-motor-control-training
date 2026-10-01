@@ -12,5 +12,5 @@ const VIDEO_IDS = {
   relax: "https://youtube.com/shorts/S-a0rpB0t5k?si=kauAgV6aCP4HUiQr",
   ankle: "https://youtube.com/shorts/hF_eI-fHX3A?si=HoPPv4BhjT_E9qj3",
   core: "https://youtube.com/shorts/ypZq3vmMPGA",
-  power: ""
+  power: "https://youtu.be/9NIflHRSKPk?si=eqrBifWJKTse6mU5"
 };
